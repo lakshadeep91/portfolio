@@ -1,6 +1,3 @@
-# JohnDoe
-A Responsive Free One Page Portfolio Website template
+# Portfolio site
 
-
-
-
+https://www.benscott.dev/
