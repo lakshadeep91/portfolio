@@ -537,7 +537,8 @@ button {
 .socials {
   display: flex;
   margin-bottom: 20px;
-}
+
+.socials__linkedin,
 .socials__github,
 .socials__email {
   display: flex;
