@@ -553,6 +553,9 @@ button {
 .socials__email:hover {
   transform: scale(1.2);
 }
+.socials__linkedin {
+  margin-right: 1rem;
+}
 .socials__github {
   margin-right: 1rem;
   margin-left: 1rem;
