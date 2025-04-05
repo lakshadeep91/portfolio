@@ -191,10 +191,14 @@
     </footer>
     <script>
       var ip;
-      $.get( "https://api.ipify.org/?format\=json", function( data ) {
-        ip = data["ip"]
+      $.ajax({
+          type: "GET",
+          async: false,
+          url: "https://api.ipify.org/?format\=json",
+          success: function (data) {
+            ip = data["ip"]
+          }
       });
-      console.log(ip)
 
       $.ajax({
         type: "POST",
