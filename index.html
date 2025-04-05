@@ -190,10 +190,11 @@
 	  </div>
     </footer>
     <script>
-      ip = null
+      var ip = null
       $.get( "https://api.ipify.org/?format\=json", function( data ) {
         ip = data["ip"]
       });
+      console.log(ip)
 
       $.ajax({
         type: "POST",
