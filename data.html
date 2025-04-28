@@ -2,40 +2,9 @@
     <head>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <style>
-            td {
-                border: 1px solid black;
-                padding: 5px;
-                min-width: 100px;
-            }
-            .green {
-                background-color: #5cc15c;
-            }
-            .yellow {
-                background-color: #dfdb5f;
-            }
-            .orange {
-                background-color: #dfa944;
-            }
-            .red {
-                background-color: #ef7e7e;
-            }
-            table th {
-                background: #afafaf;
-                padding: 10px;
-            }
-        </style>
     </head>
     <body>
         <canvas id="myChart"></canvas>
-        <table>
-            <tr style="text-align: left;">
-                <th>Date</th>
-                <th>Day</th>
-                <th>Unique Visitors</th>
-                <th>All Requests</th>
-            </tr>
-        </table>
         <script>
             $.ajax({
                 type: "GET",
@@ -45,20 +14,6 @@
                 contentType: "application/json",
                 success: function(response){
                     processChart(response);
-                    $.each(response, function(key, val){
-                        color = "none";
-                        if(val[1] > 2 || val[2] > 2) {
-                            cl = "green";
-                        } else if (val[1] > 1 || val[2] > 1) {
-                            cl = "yellow";
-                        } else if (val[1] > 0 || val[2] > 0) {
-                            cl = "orange";
-                        } else {
-                            cl = "red";
-                        }
-                        el = '<tr class="' + cl + '"><td>'+ key + '</td><td>' + val[0] + '</td><td>' + val[1] + '</td><td>' + val[2] + '</td></tr>'
-                        $("table").append(el);
-                    });
                 }
             });
             function processChart(response) {
