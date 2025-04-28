@@ -7,6 +7,18 @@
                 padding: 5px;
                 min-width: 100px;
             }
+            .green {
+                background-color: #2dbd2d;
+            }
+            .yellow {
+                background-color: #ebeb4f;
+            }
+            .orange {
+                background-color: #dfa944;
+            }
+            .red {
+                background-color: #ef7e7e;
+            }
         </style>
     </head>
     <body>
@@ -23,15 +35,15 @@
                     $.each(response, function(key, val){
                         color = "none";
                         if(val[1] > 2 || val[2] > 2) {
-                            color = "#2dbd2d"; // Green
+                            cl = "green";
                         } else if (val[1] > 1 || val[2] > 1) {
-                            color = "#ebeb4f"; // Yellow
+                            cl = "yellow";
                         } else if (val[1] > 0 || val[2] > 0) {
-                            color = "#dfa944;"; // Orange
+                            cl = "orange";
                         } else {
-                            color = " #e55c5c;"; // Red
+                            cl = "red";
                         }
-                        el = '<tr style="background:' + color + '"><td>'+ key + '</td><td>' + val[0] + '</td><td>' + val[1] + '</td><td>' + val[2] + '</td></tr>'
+                        el = '<tr class="' + cl + '"><td>'+ key + '</td><td>' + val[0] + '</td><td>' + val[1] + '</td><td>' + val[2] + '</td></tr>'
                         $("table").append(el);
                         console.log(key, val)
                     });
