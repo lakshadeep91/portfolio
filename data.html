@@ -37,7 +37,6 @@
             </tr>
         </table>
         <script>
-            res = null;
             $.ajax({
                 type: "GET",
                 url: "https://mtret6uio3.execute-api.us-east-1.amazonaws.com/prod",
@@ -45,7 +44,7 @@
                 crossDomain: true,
                 contentType: "application/json",
                 success: function(response){
-                    data = response;
+                    processChart(response);
                     $.each(response, function(key, val){
                         color = "none";
                         if(val[1] > 2 || val[2] > 2) {
@@ -59,52 +58,79 @@
                         }
                         el = '<tr class="' + cl + '"><td>'+ key + '</td><td>' + val[0] + '</td><td>' + val[1] + '</td><td>' + val[2] + '</td></tr>'
                         $("table").append(el);
-                        console.log(key, val)
                     });
                 }
             });
-
-            $.each(res, function(key, val) {
-                console.log("hello");
-                console.log(key, val);
-            });
-
-
-            const ctx = document.getElementById('myChart');
-
-            new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                title: {
-                    display: true,
-                    text: 'Sample text 1'
-                },
-                },
-                interaction: {
-                intersect: false,
-                },
-                scales: {
-                x: {
-                    display: true,
+            function processChart(response) {
+                var labels = [];
+                var unique_visitors = [];
+                var all_requests = [];
+                $.each(response, function(date, val) {
+                    labels.push(date);
+                    unique_visitors.push(val[1]);
+                    all_requests.push(val[2]);
+                });
+                labels = labels.reverse();
+                unique_visitors = unique_visitors.reverse();
+                all_requests = all_requests.reverse();
+                var max_unique_visitors = Math.max.apply(Math, unique_visitors)
+                var max_all_visitors = Math.max.apply(Math, all_requests)
+                var max_count = max_unique_visitors;
+                if(max_unique_visitors < max_all_visitors) {
+                    max_count = max_all_visitors;
+                }
+                const data = {
+                    labels: labels,
+                    datasets: [
+                        {
+                        label: 'Unique Visitors',
+                        data: unique_visitors,
+                        fill: false,
+                        cubicInterpolationMode: 'monotone',
+                        tension: 0.4
+                        }, {
+                        label: 'All Requests',
+                        data: all_requests,
+                        fill: false,
+                        tension: 0.4
+                        }
+                    ]
+                    };
+                const ctx = document.getElementById('myChart');
+                new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
                     title: {
-                    display: true
+                        display: true,
+                        text: 'Sample text 1'
+                    },
+                    },
+                    interaction: {
+                    intersect: false,
+                    },
+                    scales: {
+                    x: {
+                        display: true,
+                        title: {
+                        display: true
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                        display: true,
+                        text: 'Value'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: max_all_visitors
+                    }
                     }
                 },
-                y: {
-                    display: true,
-                    title: {
-                    display: true,
-                    text: 'Value'
-                    },
-                    suggestedMin: -10,
-                    suggestedMax: 200
-                }
-                }
-            },
-            });
+                });
+            }
         </script>
     </body>
 </html>
