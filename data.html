@@ -10,20 +10,7 @@
         </style>
     </head>
     <body>
-        <div>
-            <span></span>
-        </div>
         <table>
-            <tr>
-                <td>Hello</td>
-                <td>Hello</td>
-                <td>Hello</td>
-            </tr>
-            <tr>
-                <td>Hello</td>
-                <td>Hello</td>
-                <td>Hello</td>
-            </tr>
         </table>
         <script>
             $.ajax({
@@ -34,7 +21,19 @@
                 contentType: "application/json",
                 success: function(response){
                     $.each(response, function(key, val){
-                        $("span").append(key + ": " + val + "<br/>");
+                        color = "none";
+                        if(val[1] > 2 || val[2] > 2) {
+                            color = "#2dbd2d"; // Green
+                        } else if (val[1] > 1 || val[2] > 1) {
+                            color = "#ebeb4f"; // Yellow
+                        } else if (val[1] > 0 || val[2] > 0) {
+                            color = "#dfa944;"; // Orange
+                        } else {
+                            color = " #e55c5c;"; // Red
+                        }
+                        el = '<tr style="background:' + color + '"><td>'+ key + '</td><td>' + val[0] + '</td><td>' + val[1] + '</td><td>' + val[2] + '</td></tr>'
+                        $("table").append(el);
+                        console.log(key, val)
                     });
                 }
             });
