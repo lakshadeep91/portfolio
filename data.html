@@ -55,35 +55,47 @@
                 new Chart(ctx, {
                 type: 'line',
                 data: data,
-                options: {
-                    responsive: true,
-                    plugins: {
-                    title: {
-                        display: true,
-                        text: 'Number of Visitors / Day'
-                    },
-                    },
-                    interaction: {
-                    intersect: false,
-                    },
-                    scales: {
-                    x: {
-                        display: true,
-                        title: {
-                        display: true
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Number of Visitors / Day'
+                            },
+                        },
+                        interaction: {
+                        intersect: false,
+                        },
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Value'
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: max_all_visitors
+                            }
                         }
                     },
-                    y: {
-                        display: true,
-                        title: {
-                        display: true,
-                        text: 'Value'
+                    animation: {
+                        onComplete: () => {
+                            delayed = true;
                         },
-                        suggestedMin: 0,
-                        suggestedMax: max_all_visitors
+                        delay: (context) => {
+                            let delay = 0;
+                            if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                            delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                            }
+                            return delay;
+                        }
                     }
-                    }
-                },
                 });
             }
         </script>
