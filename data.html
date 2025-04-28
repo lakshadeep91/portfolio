@@ -15,8 +15,9 @@
                 crossDomain: true,
                 contentType: "application/json",
                 success: function(response){
-                    $("span").html(response);
-                    console.log(response);
+                    $.each(response, function(key, val){
+                        $("span").append(key + ": " + val + "<br/>");
+                    });
                 }
             });
         </script>
